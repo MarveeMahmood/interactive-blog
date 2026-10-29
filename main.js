@@ -3,7 +3,7 @@ let baseUrl = "https://dummyjson.com";
 const errorMessage = document.querySelector(".error-message");
 const postList = document.querySelector(".post-list");
 
-// 1. Get posts from the API
+// get posts from the API
 async function getPosts() {
     try {
         const response = await fetch(`${baseUrl}/posts?limit=10`);
@@ -19,7 +19,7 @@ async function getPosts() {
 }
 
 
-// 2. Show posts on the page
+// show posts on the page
 function showPosts(posts) {
     postList.innerHTML = "";
 

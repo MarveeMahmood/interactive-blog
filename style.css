@@ -22,13 +22,27 @@ header {
     margin-bottom: 36px;
     text-align: center;
 }
-
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #a7adff;
+    text-decoration: none;
+    font-weight: bold;
+}
+.back-link:hover {
+    color: #ffffff;
+}
 h1 {
     margin: 0;
     font-size: clamp(2rem, 5vw, 3rem);
     letter-spacing: -0.04em;
+    color: #a7adff;
+    text-align: left;
 }
-
+.post-details h2 {
+    font-size: 1.8rem;
+    text-align: left;
+}
 .post-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
