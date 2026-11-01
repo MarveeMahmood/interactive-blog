@@ -26,6 +26,8 @@ let currentPost;
 async function getPostDetails() {
   
     try {
+        errorMessage.textContent = "";// clear previous error message
+
         const response = await fetch(`${baseUrl}/posts/${postId}`);
         if (!response.ok) {
             throw new Error(`Status: ${response.status}`);
@@ -67,7 +69,7 @@ async function getComments() {
     }
 }
 
-/////////////////////////////////////// function to show comments on the page//?
+/////////////////////////////////////// function to show comments on the page
 function showComments(comments) {
     commentsList.innerHTML = "";
 
@@ -100,6 +102,8 @@ commentForm.addEventListener("submit", async (event) => {
     if (!body) return;
 
     try {
+        errorMessage.textContent = "";
+
         const response = await fetch(`${baseUrl}/comments/add`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -115,15 +119,18 @@ commentForm.addEventListener("submit", async (event) => {
         }
 
         const newComment = await response.json();
-        noComments.style.display = "none";//?
-        addCommentsToPage({ ...newComment, userId: newComment.userId || 1 });
+        noComments.style.display = "none";// hide the "No comments yet" message
+        addCommentsToPage(newComment);
         commentForm.reset();
     } catch (error) {
         errorMessage.textContent = `Could not add comment: ${error.message}`;
+        errorMessage.scrollIntoView();
     }
 });
 // click listener for the edit button
 editButton.addEventListener("click", () => {
+    if (!currentPost) return;// check if currentPost is defined
+
     editTitle.value = currentPost.title;
     editBody.value = currentPost.body;
     editForm.style.display = "grid";
@@ -138,6 +145,8 @@ editForm.addEventListener("submit", async (event) => {
     if (!title || !body) return;
 
     try {
+        errorMessage.textContent = "";
+
         const response = await fetch(`${baseUrl}/posts/${postId}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
@@ -155,6 +164,7 @@ editForm.addEventListener("submit", async (event) => {
         editForm.style.display = "none";
     } catch (error) {
         errorMessage.textContent = `Could not update post: ${error.message}`;
+        errorMessage.scrollIntoView();
     }  
 });
 

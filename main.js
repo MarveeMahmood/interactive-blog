@@ -6,6 +6,8 @@ const postList = document.querySelector(".post-list");
 ////////////////////////////////////// function to get posts from the API
 
 async function getPosts() {
+    errorMessage.textContent = "";// clear previous error message
+
     try {
         const response = await fetch(`${baseUrl}/posts?limit=10`);
         if (!response.ok) {
@@ -61,6 +63,7 @@ getPosts();
 
 async function deletePost(id, card) {
     try {
+        errorMessage.textContent = "";// clear previous error message
         const response = await fetch(`${baseUrl}/posts/${id}`, {
             method: "DELETE"
         });
@@ -70,6 +73,7 @@ async function deletePost(id, card) {
         card.remove();
     } catch (error) {
         errorMessage.textContent = `Could not delete post: ${error.message}`;
+        errorMessage.scrollIntoView();
     }
 }
 
