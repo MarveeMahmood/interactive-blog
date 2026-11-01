@@ -92,7 +92,7 @@ function addCommentsToPage(comment) {
             `;
             commentsList.appendChild(card);
 }
-// submit listener
+// submit listener for the comment form
 commentForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -122,11 +122,40 @@ commentForm.addEventListener("submit", async (event) => {
         errorMessage.textContent = `Could not add comment: ${error.message}`;
     }
 });
-// click listener to show the edit form with the current post content
+// click listener for the edit button
 editButton.addEventListener("click", () => {
     editTitle.value = currentPost.title;
     editBody.value = currentPost.body;
     editForm.style.display = "grid";
+});
+
+// submit listener for the edit form
+editForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const title = editTitle.value.trim();
+    const body = editBody.value.trim();
+    if (!title || !body) return;
+
+    try {
+        const response = await fetch(`${baseUrl}/posts/${postId}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                title: title,
+                body: body
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`Status: ${response.status}`);
+        }
+
+        showPostDetails({ ...currentPost, title: title, body: body });
+        editForm.style.display = "none";
+    } catch (error) {
+        errorMessage.textContent = `Could not update post: ${error.message}`;
+    }  
 });
 
 getPostDetails();
