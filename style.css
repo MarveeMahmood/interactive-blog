@@ -126,3 +126,7 @@ h1 {
     font: inherit;
     cursor: pointer;
 }
+/* hiding feature for the the edit form before click */
+.edit-form {
+    display: none;
+}

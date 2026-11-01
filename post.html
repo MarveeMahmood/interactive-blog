@@ -17,6 +17,16 @@
             <p class="error-message"></p>
             <article class="post-details"></article>
 
+            <!--Edit form--> 
+            <button class="edit-button" type="button">Edit post</button>
+            <form class="comment-form edit-form">
+                <label for="edit-title">Title:</label>
+                <input id="edit-title" type="text" required>
+                <label for="edit-body">Content:</label>
+                <textarea id="edit-body" required></textarea>
+                <button type="submit">Save changes</button>
+            </form>
+
             <section class="comments">
                 <h2>Comments</h2>
                 <form class="comment-form">
