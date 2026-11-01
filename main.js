@@ -31,7 +31,7 @@ function showPosts(posts) {
         
         card.innerHTML = `
             <h2>${post.title}</h2>
-            <p class="info">Written by user ${post.userId}</p> 
+            <p class="info author">Written by user ${post.userId}</p> 
             <p>${post.body}</p>
             <p class="tags">Tags: ${post.tags.join(", ")}</p>
             <p class="info">👍 ${post.reactions.likes} 👎 ${post.reactions.dislikes} 👁 ${post.views}</p>
@@ -41,6 +41,9 @@ function showPosts(posts) {
         // delete button
         const deleteButton = document.createElement("button");
         deleteButton.textContent = "Delete";
+        deleteButton.classList.add("delete-button");
+
+
         card.appendChild(deleteButton);
         //click listener
         deleteButton.addEventListener("click", () => {

@@ -130,3 +130,53 @@ h1 {
 .edit-form {
     display: none;
 }
+
+/* style for the edit and delete buttons */
+.edit-button,
+.delete-button {
+    align-self: flex-start;
+    padding: 10px 16px;
+    border: 0;
+    border-radius: 8px;
+    background: #727cf5;
+    color: white;
+    font: inherit;
+    cursor: pointer;
+}
+
+.delete-button {
+    margin-top: 12px;
+    background: #d9534f;
+}
+
+.edit-button {
+    margin-bottom: 24px;
+}
+
+/* style for the title input in the edit form */
+.comment-form input {
+    padding: 12px;
+    border: 1px solid #30343d;
+    border-radius: 8px;
+    background: #22252d;
+    color: #f1f3f5;
+    font: inherit;
+}
+
+/* highlight post info and tags */
+.card .author,
+.post-details .author {
+    color: #a7adff;
+}
+
+.card .tags,
+.post-details .tags {
+    color: #7dd3c0;
+}
+
+/* highlight form labels and the no comments text */
+.comment-form label,
+.no-comments {
+    color: #a7adff;
+    font-weight: bold;
+}

@@ -45,7 +45,7 @@ function showPostDetails(post) {
 
     postDetails.innerHTML = `
         <h2>${post.title}</h2>
-        <p class="info">Written by user ${post.userId}</p> 
+        <p class="info author">Written by user ${post.userId}</p> 
         <p>${post.body}</p>
         <p class="tags">Tags: ${post.tags.join(", ")}</p>
         <p class="info">👍 ${post.reactions.likes} 👎 ${post.reactions.dislikes} 👁 ${post.views}</p>
