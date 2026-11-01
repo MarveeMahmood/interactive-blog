@@ -5,6 +5,9 @@ const commentsList = document.querySelector(".comments-list");
 const noComments = document.querySelector(".no-comments");
 const errorMessage = document.querySelector(".error-message");
 
+const commentForm = document.querySelector(".comment-form");
+const commentInput = document.querySelector("#comment-input");
+
 // read id from the address
 const params = new URLSearchParams(window.location.search);
 const postId = params.get("id");
@@ -69,12 +72,41 @@ function addCommentsToPage(comment) {
             const card = document.createElement("div");
             card.classList.add("card");
             card.innerHTML = `
-                <p class="info">Comment by user ${comment.userId}</p>
+                <p class="info">Comment by user ${comment.user.fullName}</p>
                 <p>${comment.body}</p>
             `;
             commentsList.appendChild(card);
 }
+// add a new comment
+commentForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
 
+    const body = commentInput.value.trim();
+    if (!body) return;
+
+    try {
+        const response = await fetch(`${baseUrl}/comments/add`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                body: body,
+                postId: Number(postId),
+                userId: 1
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`Status: ${response.status}`);
+        }
+
+        const newComment = await response.json();
+        noComments.style.display = "none";//?
+        addCommentsToPage({ ...newComment, userId: newComment.userId || 1 });
+        commentForm.reset();
+    } catch (error) {
+        errorMessage.textContent = `Could not add comment: ${error.message}`;
+    }
+});
 
 getPostDetails();
 getComments();
