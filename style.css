@@ -180,3 +180,18 @@ h1 {
     color: #a7adff;
     font-weight: bold;
 }
+
+/* remove default list spacing and add a gap between comments */
+.comments-list {
+    display: grid;
+    gap: 16px;
+    padding: 0;
+    list-style: none;
+}
+
+/* smaller page padding on mobile */
+@media (max-width: 600px) {
+    body {
+        padding: 24px 16px;
+    }
+}
