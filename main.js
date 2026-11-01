@@ -3,7 +3,8 @@ let baseUrl = "https://dummyjson.com";
 const errorMessage = document.querySelector(".error-message");
 const postList = document.querySelector(".post-list");
 
-// get posts from the API
+////////////////////////////////////// function to get posts from the API
+
 async function getPosts() {
     try {
         const response = await fetch(`${baseUrl}/posts?limit=10`);
@@ -19,7 +20,8 @@ async function getPosts() {
 }
 
 
-// show posts on the page
+///////////////////////////////////// function to show posts on the page
+
 function showPosts(posts) {
     postList.innerHTML = "";
 
@@ -35,7 +37,37 @@ function showPosts(posts) {
             <p class="info">👍 ${post.reactions.likes} 👎 ${post.reactions.dislikes} 👁 ${post.views}</p>
             <a href="post.html?id=${post.id}">Read more</a>
         `;
+
+        // delete button
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        card.appendChild(deleteButton);
+        //click listener
+        deleteButton.addEventListener("click", () => {
+            //console.log(`Delete post with ID: ${post.id}`);
+
+        deletePost(post.id, card);
+        });
+
         postList.appendChild(card);
     }
 }
 getPosts();
+
+/////////////////////////////////////// function to delete a post
+
+async function deletePost(id, card) {
+    try {
+        const response = await fetch(`${baseUrl}/posts/${id}`, {
+            method: "DELETE"
+        });
+        if (!response.ok) {
+            throw new Error(`Status: ${response.status}`);
+        }  
+        card.remove();
+    } catch (error) {
+        errorMessage.textContent = `Could not delete post: ${error.message}`;
+    }
+}
+
+
